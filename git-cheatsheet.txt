@@ -1,0 +1,115 @@
+ШПАРГАЛКА ПО GIT
+(лабораторная работа №2, github + VS Code)
+
+НАСТРОЙКА
+git config --global user.name "ваш_ник"
+Указывает имя пользователя для подписи коммитов.
+git config --global user.email "почта@example.com"
+Указывает email для подписи коммитов.
+git version
+Проверка версии установленного Git.
+
+СОЗДАНИЕ И ИНИЦИАЛИЗАЦИЯ
+mkdir имя_папки
+Создать папку проекта.
+cd имя_папки
+Перейти в папку.
+git init -b main
+Инициализировать локальный репозиторий с веткой main.
+Создаёт скрытую папку .git.
+
+БАЗОВЫЕ КОМАНДЫ
+git status
+Показать состояние репозитория (изменённые, новые файлы).
+git add .
+Добавить все изменения в индекс (staging area).
+git add путь/к/файлу
+Добавить конкретный файл в индекс.
+git commit -m "сообщение"
+Создать коммит с описанием изменений.
+git log
+Полная история коммитов.
+git log --oneline
+Компактная история (хеш + сообщение).
+git show <хеш>
+Детальная информация о конкретном коммите + diff.
+
+ФАЙЛ .gitignore
+.gitignore
+Файл, в котором перечисляются файлы и папки,
+игнорируемые Git.
+Пример содержимого:
+bin/
+obj/
+.vs/
+
+РАБОТА С ВЕТКАМИ
+git branch
+Показать список локальных веток (* — текущая).
+git branch -a
+Показать все ветки, включая удалённые.
+git switch -c имя_ветки
+Создать ветку и переключиться на неё.
+git switch имя_ветки
+Переключиться на существующую ветку.
+git switch -
+Переключиться на предыдущую ветку.
+git branch -d имя_ветки
+Удалить ветку (безопасно, если изменения слиты).
+git branch -D имя_ветки
+Удалить ветку принудительно.
+
+УДАЛЁННЫЙ РЕПОЗИТОРИЙ (GitFlic/GitHub)
+git remote add origin <URL>
+Привязать удалённый репозиторий с именем origin.
+git remote -v
+Показать адреса удалённых репозиториев (fetch/push).
+git push -u origin main
+Отправить ветку main на сервер и запомнить upstream.
+git push --set-upstream origin feature
+Отправить новую ветку feature и связать её с origin/feature.
+git push
+Отправить изменения (если upstream уже настроен).
+git pull
+Забрать изменения с сервера и слить с локальной веткой.
+git fetch --prune
+Обновить информацию об удалённых ветках
+и удалить ссылки на несуществующие.
+
+МОИ ПРИМЕРЫ ИЗ ЛАБОРАТОРНОЙ
+cd Documents/
+mkdir Lab2_ISRPO_kornachev
+cd Lab2_ISRPO_kornachev
+mkdir backend
+cd backend
+git init -b main
+git remote add origin https://github.com/K123456-alt/Lab01_DotNet.git
+git remote -v
+dotnet new console -o Program --use-program-main
+(создан .gitignore с содержимым: bin/ obj/ .vs/)
+git add .
+git commit -m "Initial commit: create console app"
+git push -u origin main
+git log --oneline
+git checkout -b new-feature
+git branch hotfix
+git branch
+git switch -c feature
+git switch main
+git switch -
+git branch -d hotfix
+(изменения в Program.cs, затем:)
+git add .
+git commit -m "new branch"
+git push --set-upstream origin feature
+git switch main
+git pull
+git branch -D feature
+git fetch --prune
+
+ПРОБЛЕМЫ И РЕШЕНИЯ
+1) При git push появляется окно Git Credential Manager.
+   Решение: ввести логин и пароль (или токен) от GitHub.
+2) При git push ветки feature ошибка:
+   "fatal: The current branch feature has no upstream branch."
+   Решение: git push --set-upstream origin feature
